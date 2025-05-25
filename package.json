@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A story sharing application with geolocation",
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
+    "build": "node --max-old-space-size=4096 node_modules/webpack/bin/webpack.js --config webpack.prod.js",
     "start-dev": "webpack serve --config webpack.dev.js",
     "serve": "http-server dist",
     "lint": "eslint src/",
