@@ -16,6 +16,10 @@ export default class StoryPage {
   }
 
   async render() {
+    const offlineData = await getAllData();
+  if (offlineData.length > 0 && !navigator.onLine) {
+    return this._generateStoryCards(offlineData);
+  }
     return `
       <section class="story-container">
         <div class="story-header">

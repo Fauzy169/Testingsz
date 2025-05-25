@@ -52,3 +52,19 @@ export const deleteData = async (id) => {
   await store.delete(id);
   return tx.complete;
 };
+
+export const saveStories = async (stories) => {
+  const db = await openDatabase();
+  const tx = db.transaction('stories', 'readwrite');
+  const store = tx.objectStore('stories');
+  
+  stories.forEach(story => {
+    store.put(story);
+  });
+  
+  return tx.complete;
+};
+
+// Gunakan saat fetch data:
+const stories = await getStories();
+await saveStories(stories);
