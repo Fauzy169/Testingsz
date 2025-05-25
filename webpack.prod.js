@@ -4,6 +4,7 @@ const { merge } = require('webpack-merge');
 const {InjectManifest} = require('workbox-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
@@ -31,6 +32,12 @@ module.exports = merge(common, {
     ],
   },
   plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: 'public/manifest.json', to: 'manifest.json' },
+        { from: 'public/icons', to: 'icons' }
+      ],
+    }),
     new GenerateSW({
     clientsClaim: true,
     skipWaiting: true,
@@ -41,8 +48,7 @@ module.exports = merge(common, {
         options: {
           cacheName: 'images',
           expiration: {
-            maxEntries: 60,
-            maxAgeSeconds: 30 * 24 * 60 * 60, // 30 hari
+            maxEntries: 50,
           },
         },
       },

@@ -1,4 +1,5 @@
 import CONFIG from '../config';
+import { Workbox } from 'workbox-window';
 
 const registerServiceWorker = async () => {
   if ('serviceWorker' in navigator) {
@@ -27,9 +28,16 @@ const requestNotificationPermission = async () => {
 };
 
 export const initializeServiceWorker = () => {
-  if (process.env.NODE_ENV === 'production') {
-    registerServiceWorker();
-    requestNotificationPermission();
+  if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+    const wb = new Workbox('/sw.js');
+    
+    wb.register()
+      .then(registration => {
+        console.log('ServiceWorker registration successful');
+      })
+      .catch(error => {
+        console.error('ServiceWorker registration failed:', error);
+      });
   }
 };
 

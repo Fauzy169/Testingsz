@@ -39,6 +39,7 @@
     "workbox-webpack-plugin": "^7.3.0"
   },
   "dependencies": {
-    "leaflet": "^1.9.4"
+    "leaflet": "^1.9.4",
+    "workbox-window": "^7.3.0"
   }
 }
